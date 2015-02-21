@@ -1,20 +1,16 @@
 package com.amv.anthonychin.mobilevectorcalculator;
 
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
-import android.hardware.display.DisplayManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
-import android.content.Intent;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 
 public class amv extends Activity {
@@ -109,8 +105,16 @@ public class amv extends Activity {
         add();
     }
 
+    public void onToggleClicked(View view) {
+        // Is the toggle on?
+        boolean on = ((ToggleButton) view).isChecked();
 
-
+        if (on) {
+            // Enable vibrate
+        } else {
+            // Disable vibrate
+        }
+    }
 
     private void add() {
         boolean ThreeVectorAddition = false;
