@@ -2,15 +2,13 @@
 
 package com.amv.anthonychin.mobilevectorcalculator;
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
 import android.test.InstrumentationTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
  */
-public class TestVectorAddition extends InstrumentationTestCase {
+public class TestPolarVectorAddition extends InstrumentationTestCase {
     private final double DOUBLE_MAX_VALUE = 1.7976931348623157E308;
 
     private void vectorAssertEquals(Vector v1, Vector v2) {
@@ -26,7 +24,7 @@ public class TestVectorAddition extends InstrumentationTestCase {
     //Valid Domain Tests follow
 
     @MediumTest
-    //Test Case 1
+    //Test Case 9
     public void testVectorAddition2ValidInput() {
         Vector v1 = new Vector(1,0);
         Vector v2 = new Vector(0,1);
@@ -36,7 +34,7 @@ public class TestVectorAddition extends InstrumentationTestCase {
     }
 
     @MediumTest
-    //Test Case 2
+    //Test Case 10
     public void testVectorAddition2ValidBoundaryInput() {
         Vector v1 = new Vector(DOUBLE_MAX_VALUE,0);
         Vector v2 = new Vector(0,1);
@@ -46,7 +44,7 @@ public class TestVectorAddition extends InstrumentationTestCase {
     }
 
     @MediumTest
-    //Test Case 3
+    //Test Case 11
     public void testVectorAddition3ValidInput() {
         Vector v1 = new Vector(1,0);
         Vector v2 = new Vector(0,1);
@@ -57,7 +55,7 @@ public class TestVectorAddition extends InstrumentationTestCase {
     }
 
     @MediumTest
-    //Test Case 4
+    //Test Case 12
     public void testVectorAddition3ValidBoundaryInput() {
         Vector v1 = new Vector(DOUBLE_MAX_VALUE,0);
         Vector v2 = new Vector(0,-1);
