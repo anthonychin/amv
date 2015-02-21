@@ -1,3 +1,5 @@
+//Author: Andrew Walker - 260481626
+
 package com.amv.anthonychin.mobilevectorcalculator;
 
 public class Vector {
@@ -19,12 +21,16 @@ public class Vector {
 
     //Adds this vector to another and returns the resultant vector
     public Vector add(Vector v1) {
-        return null;
+        double i = this.x + v1.getX();
+        double j = this.y + v1.getY();
+        return new Vector(i,j);
     }
 
     //Adds this vector to two other vectors and returns the resultant vector
     public Vector add(Vector v1, Vector v2) {
-        return null;
+        double i = this.x + v1.getX() + v2.getX();
+        double j = this.y + v1.getY() + v2.getY();
+        return new Vector(i,j);
     }
 
     //Returns dot (scalar) product of this vector and another
