@@ -8,7 +8,7 @@ import android.test.suitebuilder.annotation.MediumTest;
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
  */
-public class TestCrossProduct extends InstrumentationTestCase {
+public class TestPolarCrossProduct extends InstrumentationTestCase {
 
     private final double DOUBLE_MAX_VALUE = 1.7976931348623157E308;
 
@@ -25,7 +25,7 @@ public class TestCrossProduct extends InstrumentationTestCase {
     //Valid Domain Tests follow
 
     @MediumTest
-    //Test Case 7
+    //Test Case 15
     public void testCrossProductValidInput() {
         Vector v1 = new Vector(1,2);
         Vector v2 = new Vector(2,1);
@@ -35,7 +35,7 @@ public class TestCrossProduct extends InstrumentationTestCase {
     }
 
     @MediumTest
-    //Test Case 8
+    //Test Case 16
     public void testCrossProductValidBoundaryInput() {
         Vector v1 = new Vector(DOUBLE_MAX_VALUE,1);
         Vector v2 = new Vector(1,1);
