@@ -35,7 +35,7 @@ public class Vector {
 
     //Returns dot (scalar) product of this vector and another
     public double dot(Vector v1) {
-        return 0.0;
+        return (this.x * v1.getX() + this.y * v1.getY());
     }
 
     /* Returns cross (vector) product of this vector and another.
@@ -43,6 +43,7 @@ public class Vector {
      * instead we are returning it as (0, k) for the sake of simplicity.
      */
     public Vector cross(Vector v1) {
-        return null;
+        double k = this.x * v1.getY() - this.y * v1.getX();
+        return new Vector(0,k);
     }
 }
