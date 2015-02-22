@@ -30,6 +30,7 @@ public class amv extends Activity {
     private TextView textSix;
 
     private int typeOfComputation;
+    private boolean polar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class amv extends Activity {
         }
 
         typeOfComputation = 1; // current default addition
+        polar = false; //polar is false at the beginning
 
         firstInputOne = (EditText)findViewById(R.id.first_vector_1);
         firstInputTwo = (EditText)findViewById(R.id.first_vector_2);
@@ -102,23 +104,17 @@ public class amv extends Activity {
 
     public void toAdd (View view) {
         typeOfComputation = 1;
-        thirdInputOne.setVisibility(View.VISIBLE);
-        thirdInputTwo.setVisibility(View.VISIBLE);
-        setTextBoxVisibility();
+        setTextBoxAndInputBoxVisibility();
     }
 
     public void toDot (View view) {
         typeOfComputation = 2;
-        thirdInputOne.setVisibility(View.GONE);
-        thirdInputTwo.setVisibility(View.GONE);
-        setTextBoxVisibility();
+        setTextBoxAndInputBoxVisibility();
     }
 
     public void toScalar (View view) {
         typeOfComputation = 3;
-        thirdInputOne.setVisibility(View.GONE);
-        thirdInputTwo.setVisibility(View.GONE);
-        setTextBoxVisibility();
+        setTextBoxAndInputBoxVisibility();
 
     }
 
@@ -135,8 +131,10 @@ public class amv extends Activity {
     public void onToggleClicked(View view) {
         boolean on = ((ToggleButton) view).isChecked();
         if (on) {
+            polar = true;
             setMagnitudeAndDegree();
         } else {
+            polar = false;
             setIAndJ();
         }
     }
@@ -144,7 +142,7 @@ public class amv extends Activity {
     private void computeAdd() {
         boolean ThreeVectorAddition = false;
         Vector thirdVector = null;
-
+        PolarVector thirdVectorPolar = null;
         //Check if any of the inputs are empty
         if (!thirdInputOne.getText().toString().equals("") &&
                 !thirdInputTwo.getText().toString().equals("")) {
@@ -153,7 +151,11 @@ public class amv extends Activity {
             double thirdVectorX = Double.parseDouble(thirdInputOne.getText().toString());
             double thirdVectorY = Double.parseDouble(thirdInputTwo.getText().toString());
 
-            thirdVector = new Vector(thirdVectorX, thirdVectorY);
+            if (polar) {
+                thirdVectorPolar = new PolarVector(thirdVectorX, thirdVectorY);
+            } else {
+                thirdVector = new Vector(thirdVectorX, thirdVectorY);
+            }
         }
 
         if(firstInputOne.getText().toString().equals("") 		||
@@ -170,19 +172,34 @@ public class amv extends Activity {
             double secondVectorX = Double.parseDouble(secondInputOne.getText().toString());
             double secondVectorY = Double.parseDouble(secondInputTwo.getText().toString());
 
-            Vector firstVector = new Vector(firstVectorX, firstVectorY);
-            Vector secondVector = new Vector(secondVectorX, secondVectorY);
-            Vector sum = null;
+            if (polar) {
+                PolarVector firstVector = new PolarVector(firstVectorX, firstVectorY);
+                PolarVector secondVector = new PolarVector(secondVectorX, secondVectorY);
 
-            if (ThreeVectorAddition) {
-                sum = firstVector.add(secondVector, thirdVector);
+                PolarVector sum = null;
+
+                if (ThreeVectorAddition) {
+                    sum = firstVector.add(secondVector, thirdVectorPolar);
+                } else {
+                    sum = firstVector.add(secondVector);
+                }
+
+                textView.setText(sum.getR() + " Magnitude : " + sum.getT() + " Degree");
+                textView.setVisibility(View.VISIBLE);
             } else {
-                sum = firstVector.add(secondVector);
+                Vector firstVector = new Vector(firstVectorX, firstVectorY);
+                Vector secondVector = new Vector(secondVectorX, secondVectorY);
+                Vector sum = null;
+
+                if (ThreeVectorAddition) {
+                    sum = firstVector.add(secondVector, thirdVector);
+                } else {
+                    sum = firstVector.add(secondVector);
+                }
+
+                textView.setText(sum.getX() + "i + " + sum.getY() +"j");
+                textView.setVisibility(View.VISIBLE);
             }
-
-            textView.setText(sum.getX() + "i + " + sum.getY() +"j");
-            textView.setVisibility(View.VISIBLE);
-
         }
 
     }
@@ -202,9 +219,16 @@ public class amv extends Activity {
             double secondVectorX = Double.parseDouble(secondInputOne.getText().toString());
             double secondVectorY = Double.parseDouble(secondInputTwo.getText().toString());
 
-            Vector firstVector = new Vector(firstVectorX, firstVectorY);
-            Vector secondVector = new Vector(secondVectorX, secondVectorY);
-            double dot = firstVector.dot(secondVector);
+            double dot = 0;
+            if (polar) {
+                PolarVector firstVector = new PolarVector(firstVectorX, firstVectorY);
+                PolarVector secondVector = new PolarVector(secondVectorX, secondVectorY);
+                dot = firstVector.dot(secondVector);
+            } else {
+                Vector firstVector = new Vector(firstVectorX, firstVectorY);
+                Vector secondVector = new Vector(secondVectorX, secondVectorY);
+                dot = firstVector.dot(secondVector);
+            }
 
             textView.setText(dot + "");
             textView.setVisibility(View.VISIBLE);
@@ -226,11 +250,20 @@ public class amv extends Activity {
             double secondVectorX = Double.parseDouble(secondInputOne.getText().toString());
             double secondVectorY = Double.parseDouble(secondInputTwo.getText().toString());
 
-            Vector firstVector = new Vector(firstVectorX, firstVectorY);
-            Vector secondVector = new Vector(secondVectorX, secondVectorY);
-            Vector cross = firstVector.cross(secondVector);
+            if (polar) {
+                PolarVector firstVector = new PolarVector(firstVectorX, firstVectorY);
+                PolarVector secondVector = new PolarVector(secondVectorX, secondVectorY);
+                PolarVector cross = firstVector.cross(secondVector);
 
-            textView.setText(cross.getX() + "i +" + cross.getY() + "j" + cross.getZ() + "k");
+                textView.setText(cross.getR() + " Magnitude : " + cross.getT() + " Degree");
+            } else {
+                Vector firstVector = new Vector(firstVectorX, firstVectorY);
+                Vector secondVector = new Vector(secondVectorX, secondVectorY);
+                Vector cross = firstVector.cross(secondVector);
+
+                textView.setText(cross.getX() + "i +" + cross.getY() + "j" + cross.getZ() + "k");
+            }
+
             textView.setVisibility(View.VISIBLE);
         }
     }
@@ -240,7 +273,6 @@ public class amv extends Activity {
         textTwo.setText("j");
         textThree.setText("i");
         textFour.setText("j");
-
         textFive.setText("i");
         textSix.setText("j");
     }
@@ -254,11 +286,13 @@ public class amv extends Activity {
         textSix.setText("Degree");
     }
 
-    private void setTextBoxVisibility() {
+    private void setTextBoxAndInputBoxVisibility() {
         textOne.setVisibility(View.VISIBLE);
         textTwo.setVisibility(View.VISIBLE);
         textThree.setVisibility(View.VISIBLE);
         textFour.setVisibility(View.VISIBLE);
+        thirdInputOne.setVisibility(View.VISIBLE);
+        thirdInputTwo.setVisibility(View.VISIBLE);
 
         if (typeOfComputation == 1) {
             textFive.setVisibility(View.VISIBLE);
@@ -266,6 +300,8 @@ public class amv extends Activity {
         } else {
             textFive.setVisibility(View.GONE);
             textSix.setVisibility(View.GONE);
+            thirdInputOne.setVisibility(View.GONE);
+            thirdInputTwo.setVisibility(View.GONE);
         }
     }
 }
