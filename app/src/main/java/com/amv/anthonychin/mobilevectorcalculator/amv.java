@@ -22,6 +22,12 @@ public class amv extends Activity {
     private EditText thirdInputOne;
     private EditText thirdInputTwo;
     private TextView textView;
+    private TextView textOne;
+    private TextView textTwo;
+    private TextView textThree;
+    private TextView textFour;
+    private TextView textFive;
+    private TextView textSix;
 
     private int typeOfComputation;
 
@@ -46,6 +52,14 @@ public class amv extends Activity {
         thirdInputOne = (EditText)findViewById(R.id.third_vector_1);
         thirdInputTwo = (EditText)findViewById(R.id.third_vector_2);
         textView = (TextView)findViewById(R.id.compute);
+        textOne = (TextView)findViewById(R.id.text1);
+        textTwo = (TextView)findViewById(R.id.text2);
+        textThree = (TextView)findViewById(R.id.text3);
+        textFour = (TextView)findViewById(R.id.text4);
+        textFive = (TextView)findViewById(R.id.text5);
+        textSix = (TextView)findViewById(R.id.text6);
+
+        setIAndJ();
     }
 
     @Override
@@ -90,20 +104,24 @@ public class amv extends Activity {
         typeOfComputation = 1;
         thirdInputOne.setVisibility(View.VISIBLE);
         thirdInputTwo.setVisibility(View.VISIBLE);
+        setTextBoxVisibility();
     }
 
     public void toDot (View view) {
         typeOfComputation = 2;
         thirdInputOne.setVisibility(View.GONE);
         thirdInputTwo.setVisibility(View.GONE);
+        setTextBoxVisibility();
     }
 
     public void toScalar (View view) {
         typeOfComputation = 3;
         thirdInputOne.setVisibility(View.GONE);
         thirdInputTwo.setVisibility(View.GONE);
+        setTextBoxVisibility();
 
     }
+
     public void computeValue (View view) {
         if (typeOfComputation == 1) {
             computeAdd();
@@ -115,12 +133,11 @@ public class amv extends Activity {
     }
 
     public void onToggleClicked(View view) {
-        // Is the toggle on?
         boolean on = ((ToggleButton) view).isChecked();
         if (on) {
-            // Enable vibrate
+            setMagnitudeAndDegree();
         } else {
-            // Disable vibrate
+            setIAndJ();
         }
     }
 
@@ -167,6 +184,7 @@ public class amv extends Activity {
             textView.setVisibility(View.VISIBLE);
 
         }
+
     }
 
     private void computeDot() {
@@ -216,8 +234,38 @@ public class amv extends Activity {
             textView.setVisibility(View.VISIBLE);
         }
     }
-//    public void sendMessage (View view) {
-//        Intent intent = new Intent(this, DisplayMessageActivity.class);
-//        EditText editText = (EditText) findViewById(R.id.edit_message);
-//    }
+
+    private void setIAndJ() {
+        textOne.setText("i");
+        textTwo.setText("j");
+        textThree.setText("i");
+        textFour.setText("j");
+
+        textFive.setText("i");
+        textSix.setText("j");
+    }
+
+    private void setMagnitudeAndDegree() {
+        textOne.setText("Magnitude");
+        textTwo.setText("Degree");
+        textThree.setText("Magnitude");
+        textFour.setText("Degree");
+        textFive.setText("Magnitude");
+        textSix.setText("Degree");
+    }
+
+    private void setTextBoxVisibility() {
+        textOne.setVisibility(View.VISIBLE);
+        textTwo.setVisibility(View.VISIBLE);
+        textThree.setVisibility(View.VISIBLE);
+        textFour.setVisibility(View.VISIBLE);
+
+        if (typeOfComputation == 1) {
+            textFive.setVisibility(View.VISIBLE);
+            textSix.setVisibility(View.VISIBLE);
+        } else {
+            textFive.setVisibility(View.GONE);
+            textSix.setVisibility(View.GONE);
+        }
+    }
 }
