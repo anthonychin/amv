@@ -87,28 +87,36 @@ public class amv extends Activity {
     }
 
     public void toAdd (View view) {
+        typeOfComputation = 1;
         thirdInputOne.setVisibility(View.VISIBLE);
         thirdInputTwo.setVisibility(View.VISIBLE);
     }
 
     public void toDot (View view) {
+        typeOfComputation = 2;
         thirdInputOne.setVisibility(View.GONE);
         thirdInputTwo.setVisibility(View.GONE);
     }
 
     public void toScalar (View view) {
+        typeOfComputation = 3;
         thirdInputOne.setVisibility(View.GONE);
         thirdInputTwo.setVisibility(View.GONE);
 
     }
     public void computeValue (View view) {
-        add();
+        if (typeOfComputation == 1) {
+            computeAdd();
+        } else if (typeOfComputation == 2) {
+            computeDot();
+        } else {
+            computeScalar();
+        }
     }
 
     public void onToggleClicked(View view) {
         // Is the toggle on?
         boolean on = ((ToggleButton) view).isChecked();
-
         if (on) {
             // Enable vibrate
         } else {
@@ -116,7 +124,7 @@ public class amv extends Activity {
         }
     }
 
-    private void add() {
+    private void computeAdd() {
         boolean ThreeVectorAddition = false;
         Vector thirdVector = null;
 
@@ -158,6 +166,54 @@ public class amv extends Activity {
             textView.setText(sum.getX() + "i + " + sum.getY() +"j");
             textView.setVisibility(View.VISIBLE);
 
+        }
+    }
+
+    private void computeDot() {
+        if(firstInputOne.getText().toString().equals("") 		||
+                firstInputTwo.getText().toString().equals("")	||
+                secondInputOne.getText().toString().equals("")	||
+                secondInputTwo.getText().toString().equals("")  ) {
+
+            textView.setText("Error: Please enter a number");
+            textView.setVisibility(View.VISIBLE);
+
+        } else {
+            double firstVectorX = Double.parseDouble(firstInputOne.getText().toString());
+            double firstVectorY = Double.parseDouble(firstInputTwo.getText().toString());
+            double secondVectorX = Double.parseDouble(secondInputOne.getText().toString());
+            double secondVectorY = Double.parseDouble(secondInputTwo.getText().toString());
+
+            Vector firstVector = new Vector(firstVectorX, firstVectorY);
+            Vector secondVector = new Vector(secondVectorX, secondVectorY);
+            double dot = firstVector.dot(secondVector);
+
+            textView.setText(dot + "");
+            textView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void computeScalar() {
+        if(firstInputOne.getText().toString().equals("") 		||
+                firstInputTwo.getText().toString().equals("")	||
+                secondInputOne.getText().toString().equals("")	||
+                secondInputTwo.getText().toString().equals("")  ) {
+
+            textView.setText("Error: Please enter a number");
+            textView.setVisibility(View.VISIBLE);
+
+        } else {
+            double firstVectorX = Double.parseDouble(firstInputOne.getText().toString());
+            double firstVectorY = Double.parseDouble(firstInputTwo.getText().toString());
+            double secondVectorX = Double.parseDouble(secondInputOne.getText().toString());
+            double secondVectorY = Double.parseDouble(secondInputTwo.getText().toString());
+
+            Vector firstVector = new Vector(firstVectorX, firstVectorY);
+            Vector secondVector = new Vector(secondVectorX, secondVectorY);
+            Vector cross = firstVector.cross(secondVector);
+
+            textView.setText(cross.getX() + "i +" + cross.getY() + "j" + cross.getZ() + "k");
+            textView.setVisibility(View.VISIBLE);
         }
     }
 //    public void sendMessage (View view) {
