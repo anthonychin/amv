@@ -39,14 +39,14 @@
                 android:onClick="toDot" />
 
             <Button
-                android:id="@+id/scalarproduct"
+                android:id="@+id/crossproduct"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_weight="0.3"
                 android:layout_height="wrap_content"
-                android:text="@string/button_scalar_product"
+                android:text="@string/button_cross_product"
                 android:textColor="@color/blue"
-                android:onClick="toScalar" />
+                android:onClick="toCross" />
         </LinearLayout>
 
         <LinearLayout
@@ -68,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="0.00"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal|numberSigned" />
 
                 <TextView android:id="@+id/text1"
                     android:layout_width="wrap_content"
@@ -79,7 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="0.00"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal|numberSigned" />
 
                 <TextView android:id="@+id/text2"
                     android:layout_width="wrap_content"
@@ -99,7 +99,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="0.00"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal|numberSigned"
+                    />
 
                 <TextView android:id="@+id/text3"
                     android:textColor="@color/blue"
@@ -110,7 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="0.00"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal|numberSigned" />
 
                 <TextView android:id="@+id/text4"
                     android:textColor="@color/blue"
@@ -130,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="0.00"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal|numberSigned" />
 
                 <TextView android:id="@+id/text5"
                     android:textColor="@color/blue"
@@ -141,7 +142,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="0.00"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal|numberSigned" />
 
 
                 <TextView android:id="@+id/text6"

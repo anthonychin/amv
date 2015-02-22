@@ -112,7 +112,7 @@ public class amv extends Activity {
         setTextBoxAndInputBoxVisibility();
     }
 
-    public void toScalar (View view) {
+    public void toCross (View view) {
         typeOfComputation = 3;
         setTextBoxAndInputBoxVisibility();
 
@@ -124,7 +124,7 @@ public class amv extends Activity {
         } else if (typeOfComputation == 2) {
             computeDot();
         } else {
-            computeScalar();
+            computeCross();
         }
     }
 
@@ -235,7 +235,7 @@ public class amv extends Activity {
         }
     }
 
-    private void computeScalar() {
+    private void computeCross() {
         if(firstInputOne.getText().toString().equals("") 		||
                 firstInputTwo.getText().toString().equals("")	||
                 secondInputOne.getText().toString().equals("")	||
@@ -261,7 +261,7 @@ public class amv extends Activity {
                 Vector secondVector = new Vector(secondVectorX, secondVectorY);
                 Vector cross = firstVector.cross(secondVector);
 
-                textView.setText(cross.getX() + "i +" + cross.getY() + "j" + cross.getZ() + "k");
+                textView.setText(cross.getX() + "i +" + cross.getY() + "j +" + cross.getZ() + "k");
             }
 
             textView.setVisibility(View.VISIBLE);
