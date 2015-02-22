@@ -48,11 +48,10 @@ public class Vector {
     }
 
     /* Returns cross (vector) product of this vector and another.
-     * The result of the cross product of 2d vectors is of the form (0, 0, k),
-     * instead we are returning it as (0, k) for the sake of simplicity.
+     * The result of the cross product of 2d vectors is of the form (0, 0, k).
      */
     public Vector cross(Vector v1) {
         double k = this.x * v1.getY() - this.y * v1.getX();
-        return new Vector(0,0,k);
+        return new Vector(0,k);
     }
 }

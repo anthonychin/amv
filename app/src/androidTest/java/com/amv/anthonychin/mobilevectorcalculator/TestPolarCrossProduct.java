@@ -10,11 +10,12 @@ import android.test.suitebuilder.annotation.MediumTest;
  */
 public class TestPolarCrossProduct extends InstrumentationTestCase {
 
-    private final double DOUBLE_MAX_VALUE = 1.7976931348623157E308;
+    private final double DOUBLE_MIN_VALUE = 4.9E-324;
+    private final double PRECISION = 1E-5;
 
-    private void vectorAssertEquals(Vector v1, Vector v2) {
-        assertEquals(v1.getX(), v2.getX());
-        assertEquals(v1.getY(), v2.getY());
+    private void vectorAssertEquals(PolarVector v1, PolarVector v2) {
+        assertEquals(v1.getR(), v2.getR(), PRECISION);
+        assertEquals(v1.getT(), v2.getT(), PRECISION);
     }
 
     @Override
@@ -27,20 +28,20 @@ public class TestPolarCrossProduct extends InstrumentationTestCase {
     @MediumTest
     //Test Case 15
     public void testCrossProductValidInput() {
-        Vector v1 = new Vector(1,2);
-        Vector v2 = new Vector(2,1);
-        Vector v3 = new Vector(0,-3);
-        Vector v = v1.cross(v2);
+        PolarVector v1 = new PolarVector(1.9,135);
+        PolarVector v2 = new PolarVector(1.3,45);
+        PolarVector v3 = new PolarVector(0,2.47);
+        PolarVector v = v1.cross(v2);
         vectorAssertEquals(v3, v);
     }
 
     @MediumTest
     //Test Case 16
     public void testCrossProductValidBoundaryInput() {
-        Vector v1 = new Vector(DOUBLE_MAX_VALUE,1);
-        Vector v2 = new Vector(1,1);
-        Vector v3 = new Vector(0,DOUBLE_MAX_VALUE);
-        Vector v = v1.cross(v2);
+        PolarVector v1 = new PolarVector(DOUBLE_MIN_VALUE*2,37.2);
+        PolarVector v2 = new PolarVector(0.5,127.2);
+        PolarVector v3 = new PolarVector(0,-DOUBLE_MIN_VALUE);
+        PolarVector v = v1.cross(v2);
         vectorAssertEquals(v3, v);
     }
 }
