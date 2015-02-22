@@ -21,4 +21,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    dependencies{
+//    compile 'com.github.lecho:hellocharts-library:<library_version>@aar'
+    }
 }
