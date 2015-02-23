@@ -88,7 +88,7 @@ public class PolarVector {
 
     /* Returns cross (vector) product of this vector and another.
      * The result of the cross product of 2d vectors is of the form (0, 0, k),
-     * instead we are returning it as (0, k) for the sake of simplicity.
+     * instead we are returning it as (0, k) so we don't need to modify this class.
      */
     public PolarVector cross(PolarVector v1) {
         double rads = Math.toRadians(this.getT() - v1.getT());

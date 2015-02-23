@@ -2,6 +2,10 @@ package com.amv.anthonychin.mobilevectorcalculator;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -28,6 +33,14 @@ public class amv extends Activity {
     private TextView textFour;
     private TextView textFive;
     private TextView textSix;
+
+    private ImageView graph;
+    private Canvas canvas;
+
+    private Paint axesPaint;
+    private Paint vectorPaint;
+
+    private static final double PRECISION = 1E-5;
 
     private int typeOfComputation;
     private boolean polar;
@@ -60,6 +73,20 @@ public class amv extends Activity {
         textFour = (TextView)findViewById(R.id.text4);
         textFive = (TextView)findViewById(R.id.text5);
         textSix = (TextView)findViewById(R.id.text6);
+
+        graph = (ImageView)findViewById(R.id.graph);
+        Bitmap bitmap = Bitmap.createBitmap((int) getWindowManager()
+                .getDefaultDisplay().getWidth(), (int) getWindowManager()
+                .getDefaultDisplay().getHeight(), Bitmap.Config.ARGB_8888);
+        canvas = new Canvas(bitmap);
+        graph.setImageBitmap(bitmap);
+
+        axesPaint = new Paint();
+        axesPaint.setColor(Color.BLACK);
+        axesPaint.setStrokeWidth(10f);
+        vectorPaint = new Paint();
+        vectorPaint.setColor(Color.RED);
+        vectorPaint.setStrokeWidth(10f);
 
         setIAndJ();
     }
@@ -186,6 +213,8 @@ public class amv extends Activity {
 
                 textView.setText(sum.getR() + " Magnitude : " + sum.getT() + " Degree");
                 textView.setVisibility(View.VISIBLE);
+
+                drawVector(sum);
             } else {
                 Vector firstVector = new Vector(firstVectorX, firstVectorY);
                 Vector secondVector = new Vector(secondVectorX, secondVectorY);
@@ -199,6 +228,8 @@ public class amv extends Activity {
 
                 textView.setText(sum.getX() + "i + " + sum.getY() +"j");
                 textView.setVisibility(View.VISIBLE);
+
+                drawVector(sum);
             }
         }
 
@@ -255,13 +286,18 @@ public class amv extends Activity {
                 PolarVector secondVector = new PolarVector(secondVectorX, secondVectorY);
                 PolarVector cross = firstVector.cross(secondVector);
 
-                textView.setText(cross.getR() + " Magnitude : " + cross.getT() + " Degree");
+                textView.setText(cross.getR() + " Magnitude : 0; Degrees: 0; Z: " + cross.getT());
+
+                //We only care about the z component, so I don't want to convert it to cartesian first
+                drawVector(new Vector(0, cross.getT()));
             } else {
                 Vector firstVector = new Vector(firstVectorX, firstVectorY);
                 Vector secondVector = new Vector(secondVectorX, secondVectorY);
                 Vector cross = firstVector.cross(secondVector);
 
-                textView.setText(cross.getX() + "i +" + cross.getY() + "j +" + cross.getZ() + "k");
+                textView.setText("0i + 0j + " + cross.getY() + "k");
+
+                drawVector(cross);
             }
 
             textView.setVisibility(View.VISIBLE);
@@ -303,5 +339,46 @@ public class amv extends Activity {
             thirdInputOne.setVisibility(View.GONE);
             thirdInputTwo.setVisibility(View.GONE);
         }
+    }
+
+    private void drawVector(Vector v) {
+        canvas.drawColor(Color.WHITE);
+        //x or xy axis
+        int startx = 0;
+        int starty = 500;
+        int endx = 1000;
+        int endy = 500;
+        canvas.drawLine(startx, starty, endx, endy, axesPaint);
+        //y or z axis
+        startx = 500;
+        starty = 0;
+        endx = 500;
+        endy = 1000;
+        canvas.drawLine(startx, starty, endx, endy, axesPaint);
+        //draw vector
+        //first we find the angle of the vector
+        double t = 0;
+        if(Math.abs(v.getX())>=PRECISION && Math.abs(v.getY())>=PRECISION) {
+            t = Math.atan(v.getY() / v.getX());
+        } else if (Math.abs(v.getY())<PRECISION) {
+            if (v.getX() < 0) {
+                t = Math.PI;
+            }
+        } else {
+            if (v.getY() > 0) {
+                t = Math.PI/2d;
+            } else if(v.getY() < 0) {
+                t = Math.PI*3d/2d;
+            }
+        }
+        startx = 500;
+        starty = 500;
+        endx = 500 + (int)(50*v.getX());
+        endy = 500 - (int)(50*v.getY());
+        canvas.drawLine(startx, starty, endx, endy, vectorPaint);
+    }
+
+    private void drawVector(PolarVector v) {
+        drawVector(v.polar2cart(v));
     }
 }
