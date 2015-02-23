@@ -342,19 +342,23 @@ public class amv extends Activity {
     }
 
     private void drawVector(Vector v) {
+        //erase canvas
         canvas.drawColor(Color.WHITE);
+
         //x or xy axis
         int startx = 0;
         int starty = 500;
         int endx = 1000;
         int endy = 500;
         canvas.drawLine(startx, starty, endx, endy, axesPaint);
+
         //y or z axis
         startx = 500;
         starty = 0;
         endx = 500;
         endy = 1000;
         canvas.drawLine(startx, starty, endx, endy, axesPaint);
+
         //draw vector
         //first we find the angle of the vector
         double t = 0;
@@ -371,6 +375,7 @@ public class amv extends Activity {
                 t = Math.PI*3d/2d;
             }
         }
+
         startx = 500;
         starty = 500;
         endx = 500 + (int)(50*v.getX());
