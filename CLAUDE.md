@@ -4,8 +4,7 @@
 
 AMV (Anthony Mobile Vector) is an Android application for computing 2D vector operations. Users can work in either **Cartesian** (i, j components) or **Polar** (magnitude, degree) coordinate modes. Results are displayed numerically and drawn on a canvas graph.
 
-**Author:** Anthony Chin  
-**Contributor:** Andrew Walker
+**Authors:** Anthony Chin, Andrew Walker
 
 ---
 
