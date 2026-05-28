@@ -2,8 +2,7 @@
 
 An Android application for computing 2D vector operations in both Cartesian and Polar coordinate modes, with graphical output.
 
-**Author:** Anthony Chin  
-**Contributor:** Andrew Walker
+**Authors:** Anthony Chin, Andrew Walker
 
 ---
 
